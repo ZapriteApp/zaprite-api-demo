@@ -1,3 +1,5 @@
+'use client'
+
 import { AppSidebar } from '@/components/app-sidebar'
 import {
   Breadcrumb,
@@ -21,8 +23,34 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Loader2 } from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
 
 export default function BillingPage() {
+  const [isLoading, setIsLoading] = useState(false)
+
+  async function createZapriteOrder() {
+    try {
+      setIsLoading(true)
+      const response = await fetch('/api/billing/create-order', {
+        method: 'POST',
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to create order')
+      }
+
+      const data = await response.json()
+      window.location.href = data.checkoutUrl
+    } catch (error) {
+      console.error('Error creating order:', error)
+      setIsLoading(false)
+      toast.error('Could not create Order')
+    }
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -71,7 +99,7 @@ export default function BillingPage() {
                   <div className="text-right">
                     <p className="font-medium">$29/month</p>
                     <p className="text-sm text-muted-foreground">
-                      Next billing date: Apr 1, 2025
+                      Next billing date: May 1, 2025
                     </p>
                   </div>
                 </div>
@@ -108,11 +136,22 @@ export default function BillingPage() {
                       </p>
                     </div>
                     <div className="ml-auto mr-6">
-                      <Button>Pay Now</Button>
+                      <Button onClick={createZapriteOrder} disabled={isLoading}>
+                        {isLoading ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Processing...
+                          </>
+                        ) : (
+                          'Pay Now'
+                        )}
+                      </Button>
                     </div>
                     <div className="text-right">
                       <p className="font-medium">$29.00</p>
-                      <p className="text-sm text-red-600">Due on Apr 1, 2025</p>
+                      <p className="text-sm text-orange-400">
+                        Due on Apr 1, 2025
+                      </p>
                     </div>
                   </div>
                   <Separator />
@@ -151,6 +190,7 @@ export default function BillingPage() {
           </div>
         </div>
       </SidebarInset>
+      <Toaster />
     </SidebarProvider>
   )
 }
