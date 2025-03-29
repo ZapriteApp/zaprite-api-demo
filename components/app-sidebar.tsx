@@ -6,6 +6,7 @@ import {
   Bot,
   Command,
   Frame,
+  House,
   LifeBuoy,
   Map,
   PieChart,
@@ -35,6 +36,11 @@ const data = {
     avatar: '/avatars/satoshi.png',
   },
   navMain: [
+    {
+      title: 'Home',
+      url: '/',
+      icon: House,
+    },
     {
       title: 'Playground',
       url: '#',
