@@ -30,16 +30,15 @@ import {
 
 const data = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    name: 'Satoshi',
+    email: 'satoshin@gmx.com',
+    avatar: '/avatars/satoshi.png',
   },
   navMain: [
     {
       title: 'Playground',
       url: '#',
       icon: SquareTerminal,
-      isActive: true,
       items: [
         {
           title: 'History',
@@ -99,8 +98,9 @@ const data = {
     },
     {
       title: 'Settings',
-      url: '#',
+      url: '/settings',
       icon: Settings2,
+      isActive: true,
       items: [
         {
           title: 'General',
@@ -112,7 +112,7 @@ const data = {
         },
         {
           title: 'Billing',
-          url: '#',
+          url: '/settings/billing',
         },
         {
           title: 'Limits',
