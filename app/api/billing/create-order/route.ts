@@ -30,7 +30,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         amount: cartAmount,
         currency: 'USD',
-        label: 'Acme Inc Billing Order',
+        label: 'Super SaaS Billing Order',
         customCheckoutId: process.env.ZAPRITE_CHECKOUT_ID,
         redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/settings/billing/payment?cart_id=${externalUniqId}`,
         sendReceiptToCustomer: false,
