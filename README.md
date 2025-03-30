@@ -1,4 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a demo web app, built to showcase a basic Zaprite API integration.
+
+## Demonstration
+
+The example API integration showcases a demo customer dashboard where a payment is required. The following flow has been built:
+
+1. The customer is presented with an amount to pay.
+2. The customer clicks a button to initiate a payment.
+3. The app uses Zaprite's API to create an Order (`/v1/order`), using the merchant's preferred Checkout and Payment Method options.
+4. The customer is redirected to the `checkoutUrl` returned from the API.
+5. The customer makes a payment and is redirected back to the `redirectUrl` specified in the original Order request.
+6. A 'success' page uses the Order information to query the Order at Zaprite (`/v1/order/{id}`) and display the relevant information to the customer.
+
+## Zaprite API
+
+You can learn more about Zaprite's API at:
+
+- [https://zaprite.com/developers](https://zaprite.com/developers)
+- [https://api.zaprite.com](https://api.zaprite.com)
+
+## Stack
+
+This app was built using [Next.js](https://nextjs.org), bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). It uses [Tailwind](https://tailwindcss.com/) and [Shadcn](https://ui.shadcn.com).
+
+# Local Development
 
 ## Getting Started
 
@@ -16,11 +40,17 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Requirements
+
+You will need an API key associated with your Zaprite Organization to interact with our API. You can request API access by logging into your Zaprite Organization, creating a Sandbox Organization for testing, and then navigating to _Settings > API_.
+
+Learn more about Zaprite Sandbox Organizations at:
+
+- [How to test payments for an API integration](https://help.zaprite.com/en/articles/9875022-how-to-test-payments-for-an-api-integration).
+
+## Learn More About Next.js
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
