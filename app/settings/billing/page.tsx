@@ -44,7 +44,7 @@ export default function BillingPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          cartAmount: 2900,
+          cartAmount: 100,
           externalUniqId: cartId,
         }),
       })
@@ -108,7 +108,7 @@ export default function BillingPage() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">$29/month</p>
+                    <p className="font-medium">$1/month</p>
                     <p className="text-sm text-muted-foreground">
                       Next billing date: May 1, 2025
                     </p>
@@ -156,7 +156,7 @@ export default function BillingPage() {
                       </Button>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium">$29.00</p>
+                      <p className="font-medium">$1.00</p>
                       <p className="text-sm text-orange-400">
                         Due on Apr 1, 2025
                       </p>
@@ -171,7 +171,7 @@ export default function BillingPage() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium">$29.00</p>
+                      <p className="font-medium">$1.00</p>
                       <p className="text-sm text-muted-foreground">
                         Paid on Mar 1, 2025
                       </p>
@@ -186,7 +186,7 @@ export default function BillingPage() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium">$29.00</p>
+                      <p className="font-medium">$1.00</p>
                       <p className="text-sm text-muted-foreground">
                         Paid on Feb 1, 2025
                       </p>

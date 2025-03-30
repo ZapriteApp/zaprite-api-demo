@@ -14,6 +14,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Page() {
@@ -46,10 +47,13 @@ export default function Page() {
             <div className="flex flex-col p-8 bg-muted/50 aspect-video rounded-xl">
               <h2 className="mb-3 text-2xl font-semibold">Billing</h2>
               <p>
-                You have an account balance of <strong>$29.00</strong>
+                You have an account balance of <strong>$1.00</strong>
               </p>
               <Link href="/settings/billing" className="mt-auto">
-                <Button variant="outline">Make a Payment</Button>
+                <Button variant="outline">
+                  Make a Payment
+                  <ArrowRight className="ml-1" />
+                </Button>
               </Link>
             </div>
             <div className="bg-muted/50 aspect-video rounded-xl" />
