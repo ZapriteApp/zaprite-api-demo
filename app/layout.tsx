@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Acme Inc',
+  title: 'Super SaaS',
   description: 'Demo app to showcase Zaprite API.',
 }
 
@@ -24,6 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.png" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

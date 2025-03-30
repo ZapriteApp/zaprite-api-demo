@@ -143,7 +143,11 @@ export default function BillingPage() {
                       </p>
                     </div>
                     <div className="ml-auto mr-6">
-                      <Button onClick={createZapriteOrder} disabled={isLoading}>
+                      <Button
+                        onClick={createZapriteOrder}
+                        disabled={isLoading}
+                        className="bg-[#339af1]"
+                      >
                         {isLoading ? (
                           <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
