@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { CheckCircle2, XCircle } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Toaster } from '@/components/ui/sonner'
@@ -45,6 +45,14 @@ interface ZapriteOrder {
 }
 
 export default function PaymentPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PaymentContent />
+    </Suspense>
+  )
+}
+
+function PaymentContent() {
   const searchParams = useSearchParams()
   const [status, setStatus] = useState<'success' | 'error' | 'loading'>(
     'loading',
