@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { NextRequest } from 'next/server'
 
 const getZapriteApiUrl = () => {
   const apiUrl = process.env.ZAPRITE_API_URL
@@ -9,12 +8,11 @@ const getZapriteApiUrl = () => {
   return apiUrl
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } },
-) {
+type Params = Promise<{ id: string }>
+
+export async function GET(request: Request, context: { params: Params }) {
   try {
-    const { id } = params
+    const { id } = await context.params
     const zapriteApiUrl = getZapriteApiUrl()
 
     const response = await fetch(`${zapriteApiUrl}/v1/order/${id}`, {
