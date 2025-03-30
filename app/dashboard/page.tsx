@@ -7,12 +7,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
+import Link from 'next/link'
 
 export default function Page() {
   return (
@@ -41,7 +43,15 @@ export default function Page() {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="bg-muted/50 aspect-video rounded-xl" />
+            <div className="flex flex-col p-8 bg-muted/50 aspect-video rounded-xl">
+              <h2 className="mb-3 text-2xl font-semibold">Billing</h2>
+              <p>
+                You have an account balance of <strong>$29.00</strong>
+              </p>
+              <Link href="/settings/billing" className="mt-auto">
+                <Button variant="outline">Make a Payment</Button>
+              </Link>
+            </div>
             <div className="bg-muted/50 aspect-video rounded-xl" />
             <div className="bg-muted/50 aspect-video rounded-xl" />
           </div>
