@@ -24,18 +24,72 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { CheckCircle2, XCircle } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { toast } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
+
+interface ZapriteOrder {
+  id: string
+  status:
+    | 'PENDING'
+    | 'PROCESSING'
+    | 'PAID'
+    | 'OVERPAID'
+    | 'UNDERPAID'
+    | 'COMPLETE'
+  amount: number
+  currency: string
+  createdAt: string
+  updatedAt: string
+}
 
 export default function PaymentPage() {
   const searchParams = useSearchParams()
-  const [status, setStatus] = useState<'success' | 'error' | null>(null)
+  const [status, setStatus] = useState<'success' | 'error' | 'loading'>(
+    'loading',
+  )
+  const [order, setOrder] = useState<ZapriteOrder | null>(null)
 
   useEffect(() => {
-    const status = searchParams.get('status')
-    if (status === 'success' || status === 'error') {
-      setStatus(status)
+    const fetchOrderStatus = async () => {
+      try {
+        // Get cart_id from URL params or localStorage
+        const cartId =
+          searchParams.get('cart_id') || localStorage.getItem('cart_id')
+
+        if (!cartId) {
+          toast.error('No payment found.')
+          setStatus('error')
+          return
+        }
+
+        // Make API call to Zaprite
+        const response = await fetch(`/api/billing/order/${cartId}`)
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch order status')
+        }
+
+        const data: ZapriteOrder = await response.json()
+        setOrder(data)
+
+        // Determine status based on order state
+        if (data.status === 'COMPLETE' || data.status === 'PAID') {
+          setStatus('success')
+        } else if (data.status === 'UNDERPAID') {
+          setStatus('error')
+        } else {
+          setStatus('loading')
+        }
+      } catch (error) {
+        console.error('Error fetching order status:', error)
+        setStatus('error')
+        toast.error('Failed to fetch payment status')
+      }
     }
+
+    fetchOrderStatus()
   }, [searchParams])
 
   return (
@@ -91,6 +145,11 @@ export default function PaymentPage() {
                 ) : status === 'error' ? (
                   <XCircle className="h-16 w-16 text-red-500" />
                 ) : null}
+                {order && (
+                  <pre className="mt-4 w-full overflow-auto rounded-lg bg-muted p-4 text-sm">
+                    {JSON.stringify(order, null, 2)}
+                  </pre>
+                )}
                 <Button
                   onClick={() => (window.location.href = '/settings/billing')}
                   className="mt-4"
@@ -102,6 +161,7 @@ export default function PaymentPage() {
           </Card>
         </div>
       </SidebarInset>
+      <Toaster />
     </SidebarProvider>
   )
 }

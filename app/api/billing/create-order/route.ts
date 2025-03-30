@@ -8,8 +8,18 @@ const getZapriteApiUrl = () => {
   return apiUrl
 }
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
+    const body = await request.json()
+    const { cartAmount, externalUniqId } = body
+
+    if (!externalUniqId) {
+      return NextResponse.json(
+        { error: 'externalUniqId is required' },
+        { status: 400 },
+      )
+    }
+
     const zapriteApiUrl = getZapriteApiUrl()
     const response = await fetch(`${zapriteApiUrl}/v1/order`, {
       method: 'POST',
@@ -18,12 +28,13 @@ export async function POST() {
         Authorization: `Bearer ${process.env.ZAPRITE_API_KEY}`,
       },
       body: JSON.stringify({
-        amount: 100,
+        amount: cartAmount,
         currency: 'USD',
         label: 'Acme Inc Billing Order',
         customCheckoutId: 'cm8uluauv000i13jim8z0f82e',
-        redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/settings/billing/payment`,
+        redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/settings/billing/payment?cart_id=${externalUniqId}`,
         sendReceiptToCustomer: false,
+        externalUniqId,
       }),
     })
 

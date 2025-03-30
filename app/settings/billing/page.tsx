@@ -23,7 +23,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Loader2 } from 'lucide-react'
+import { ArrowRight, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { Toaster } from '@/components/ui/sonner'
@@ -34,8 +34,19 @@ export default function BillingPage() {
   async function createZapriteOrder() {
     try {
       setIsLoading(true)
+      const timestamp = Date.now().toString()
+      const cartId = `cart_${timestamp}`
+      localStorage.setItem('cart_id', cartId)
+
       const response = await fetch('/api/billing/create-order', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cartAmount: 2900,
+          externalUniqId: cartId,
+        }),
       })
 
       if (!response.ok) {
@@ -145,6 +156,7 @@ export default function BillingPage() {
                         ) : (
                           'Pay Now'
                         )}
+                        <ArrowRight className="ml-1" />
                       </Button>
                     </div>
                     <div className="text-right">
