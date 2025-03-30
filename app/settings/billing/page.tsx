@@ -122,10 +122,6 @@ export default function BillingPage() {
                       Expiring
                     </span>
                   </div>
-                  {/* <div className="flex items-center justify-between">
-                    <span className="text-sm">Payment Method</span>
-                    <span className="text-sm font-medium">•••• 4242</span>
-                  </div> */}
                 </div>
               </CardContent>
             </Card>

@@ -31,7 +31,7 @@ export async function POST(request: Request) {
         amount: cartAmount,
         currency: 'USD',
         label: 'Acme Inc Billing Order',
-        customCheckoutId: 'cm8uluauv000i13jim8z0f82e',
+        customCheckoutId: process.env.ZAPRITE_CHECKOUT_ID,
         redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/settings/billing/payment?cart_id=${externalUniqId}`,
         sendReceiptToCustomer: false,
         externalUniqId,

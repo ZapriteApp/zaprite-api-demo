@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { ArrowRight } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -56,7 +55,6 @@ function Button({
       {...props}
     >
       {children}
-      {!asChild && <ArrowRight className="ml-1" />}
     </Comp>
   )
 }
