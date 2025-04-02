@@ -33,6 +33,7 @@ export async function POST(request: Request) {
         label: 'Super SaaS Billing Order',
         customCheckoutId: process.env.ZAPRITE_CHECKOUT_ID,
         redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/settings/billing/payment?cart_id=${externalUniqId}`,
+        disablePaymentNotifs: true,
         sendReceiptToCustomer: false,
         externalUniqId,
       }),
